@@ -1,0 +1,29 @@
+driver:
+  name: ec2
+  region: us-west-2
+  instance_type: t2.micro
+  image_id: ami-0def3275
+  aws_ssh_key_id: rean_tejas.taunad_20171220_O 
+  tags:
+    Name: testing.kitchen-ec2
+    Owner: Tejas.taunad 
+
+transport:
+  name: ssh
+  ssh_key: /home/tejas/key.pem
+
+verifier:
+  name: inspec
+
+platforms:
+
+  # Ubuntu xenial
+  - name: ubuntu-16.04
+suites:
+  - name: default
+    run_list:
+      - recipe[lampstack::default]
+    verifier:
+      inspec_tests:
+        - test/smoke/
+
